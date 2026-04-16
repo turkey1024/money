@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>要饭 · Beg Meal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #ffffff;
+            font-family: system-ui, -apple-system, 'Segoe UI', 'Roboto', 'Helvetica Neue', Helvetica, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+            position: relative;
+        }
+        .beg-container {
+            max-width: 640px;
+            width: 100%;
+            background: #fff;
+        }
+        .qr-section {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .qr-label {
+            font-size: 16px;
+            font-weight: 480;
+            color: #1c1c1e;
+            margin-bottom: 12px;
+            text-align: center;
+            letter-spacing: -0.2px;
+        }
+        .reward-qr {
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            background: transparent;
+        }
+        .beg-tip {
+            margin-top: 18px;
+            font-size: 16px;
+            color: #5e5e66;
+            letter-spacing: 0.5px;
+            font-weight: 450;
+            text-align: center;
+        }
+        .crypto-section {
+            margin-top: 32px;
+            border-top: 1px solid #e9e9ef;
+            padding-top: 24px;
+        }
+        .crypto-title {
+            font-size: 16px;
+            font-weight: 510;
+            color: #1c1c1e;
+            margin-bottom: 18px;
+            letter-spacing: -0.2px;
+            text-align: center;
+        }
+        .crypto-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .crypto-item {
+            background: #f9f9fb;
+            padding: 12px 14px;
+            border-radius: 14px;
+            word-break: break-all;
+        }
+        .crypto-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 6px;
+            display: inline-block;
+            background: #e9e9ef;
+            padding: 2px 10px;
+            border-radius: 20px;
+            letter-spacing: -0.2px;
+        }
+        .crypto-address {
+            font-size: 14px;
+            color: #2c2c2e;
+            font-family: 'SF Mono', 'Menlo', monospace;
+            line-height: 1.45;
+            margin-top: 8px;
+            word-break: break-all;
+        }
+        .crypto-address span {
+            background: #ffffff;
+            padding: 4px 8px;
+            display: inline-block;
+            border-radius: 10px;
+            border: 0.5px solid #e3e3e8;
+            font-size: 13px;
+            width: 100%;
+        }
+        .blog-link {
+            margin-top: 36px;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #e9e9ef;
+        }
+        .blog-link a {
+            color: #0077cc;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 470;
+            transition: opacity 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .blog-link a:hover {
+            opacity: 0.7;
+            text-decoration: underline;
+        }
+        .lang-switch {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            z-index: 100;
+            background: #f2f2f5;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border: 0.5px solid #e2e2e8;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            color: #1c1c1e;
+        }
+        .lang-switch:hover {
+            background: #e9e9ef;
+        }
+        @media (max-width: 480px) {
+            body {
+                padding: 20px 12px;
+            }
+            .crypto-item {
+                padding: 10px 12px;
+            }
+            .crypto-name {
+                font-size: 13px;
+            }
+            .crypto-address span {
+                font-size: 12px;
+            }
+            .beg-tip {
+                font-size: 15px;
+            }
+            .qr-label {
+                font-size: 15px;
+            }
+            .lang-switch {
+                top: 12px;
+                right: 12px;
+                padding: 4px 12px;
+                font-size: 13px;
+            }
+            .crypto-title {
+                font-size: 15px;
+            }
+        }
+        img {
+            border: 0;
+            outline: 0;
+        }
+    </style>
+</head>
+<body>
+    <button class="lang-switch" id="langToggleBtn">English</button>
+    <div class="beg-container">
+        <div class="qr-section">
+            <div class="qr-label" id="qrLabelText">微信赞赏码：</div>
+            <img class="reward-qr" 
+                 src="https://img.lhl.one/storage/thumbnails/20260406/4c8afefc1dd57618dabc557dc1001bc1.png" 
+                 alt="微信赞赏码"
+                 loading="lazy">
+            <div class="beg-tip" id="begTipText">随缘给点</div>
+        </div>
+        <div class="crypto-section">
+            <div class="crypto-title" id="cryptoTitile">虚拟币通道🥳</div>
+            <div class="crypto-list">
+                <div class="crypto-item">
+                    <div class="crypto-name" data-key="usdttrx_name">USDT-TRX (Tron)</div>
+                    <div class="crypto-address"><span>THFbYYVhSaBMzYwbSS213Kju69MmYViGzb</span></div>
+                </div>
+                <div class="crypto-item">
+                    <div class="crypto-name" data-key="usdteth_name">USDT-ETH (Ethereum)</div>
+                    <div class="crypto-address"><span>0xb6f6943ed5ea248b903bef9dbac09c4d56fb359e</span></div>
+                </div>
+                <div class="crypto-item">
+                    <div class="crypto-name" data-key="btc_name">比特币 BTC</div>
+                    <div class="crypto-address"><span>15s2HMGpYCSd1VswpL3tVGYPZGpv6oe19r</span></div>
+                </div>
+                <div class="crypto-item">
+                    <div class="crypto-name" data-key="usdceth_name">USDC-ETH (Ethereum)</div>
+                    <div class="crypto-address"><span>0xb6f6943ed5ea248b903bef9dbac09c4d56fb359e</span></div>
+                </div>
+                <div class="crypto-item">
+                    <div class="crypto-name" data-key="eth_name">以太坊 ETH</div>
+                    <div class="crypto-address"><span>0xb6f6943ed5ea248b903bef9dbac09c4d56fb359e</span></div>
+                </div>
+                <div class="crypto-item">
+                    <div class="crypto-name" data-key="doge_name">DogeCoin 狗狗币</div>
+                    <div class="crypto-address"><span>DRkCbLT715QNbBZAC4RKWwbRcN5hC6Y1Na</span></div>
+                </div>
+                <div class="crypto-item">
+                    <div class="crypto-name" data-key="ltc_name">LiteCoin 莱特币</div>
+                    <div class="crypto-address"><span>Lfq4KHpHnKk9Jz4idcR4FCVawSifxeabb1</span></div>
+                </div>
+                <div class="crypto-item">
+                    <div class="crypto-name" data-key="xmr_name">门罗币 XMR</div>
+                    <div class="crypto-address"><span>42DwvuuCXcpVbaZUgyVbZNVEPBgZfz7ZF1U16EhoFpWG9JZNsmu5AY91eh7EXW13jnL2R4Z4wp2wTTgK75xavz9r2w45epp</span></div>
+                </div>
+                <div class="crypto-item">
+                    <div class="crypto-name" data-key="trx_name">Tron TRX</div>
+                    <div class="crypto-address"><span>TRh4Bp8MfRfD5YaXNULt6qrVe7NEH5YxrU</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="blog-link">
+            <a href="https://ljx.is-a.dev" target="_blank" rel="noopener noreferrer" id="blogLinkText">点击跳转turkey博客</a>
+        </div>
+    </div>
+    <script>
+        (function() {
+            const translations = {
+                zh: {
+                    qrLabel: "微信赞赏码：",
+                    begTip: "随缘给点",
+                    cryptoTitle: "虚拟币通道🥳",
+                    blog: "点击跳转turkey博客",
+                    langBtn: "English",
+                    usdttrx_name: "USDT-TRX (Tron)",
+                    usdteth_name: "USDT-ETH (Ethereum)",
+                    btc_name: "比特币 BTC",
+                    usdceth_name: "USDC-ETH (Ethereum)",
+                    eth_name: "以太坊 ETH",
+                    doge_name: "DogeCoin 狗狗币",
+                    ltc_name: "LiteCoin 莱特币",
+                    xmr_name: "门罗币 XMR",
+                    trx_name: "Tron TRX"
+                },
+                en: {
+                    qrLabel: "WeChat Reward Code:",
+                    begTip: "Give as you wish",
+                    cryptoTitle: "Crypto Channel🥳",
+                    blog: "Click to visit turkey blog",
+                    langBtn: "中文",
+                    usdttrx_name: "USDT-TRX (Tron)",
+                    usdteth_name: "USDT-ETH (Ethereum)",
+                    btc_name: "Bitcoin BTC",
+                    usdceth_name: "USDC-ETH (Ethereum)",
+                    eth_name: "Ethereum ETH",
+                    doge_name: "DogeCoin",
+                    ltc_name: "LiteCoin",
+                    xmr_name: "Monero XMR",
+                    trx_name: "Tron TRX"
+                }
+            };
+            let currentLang = 'zh';
+            const qrLabelEl = document.getElementById('qrLabelText');
+            const begTipEl = document.getElementById('begTipText');
+            const cryptoTitileEl = document.getElementById('cryptoTitile');
+            const blogLinkEl = document.getElementById('blogLinkText');
+            const toggleBtn = document.getElementById('langToggleBtn');
+            const cryptoNameEls = document.querySelectorAll('.crypto-name');
+            function updateLanguage(lang) {
+                const t = translations[lang];
+                if (!t) return;
+                if (qrLabelEl) qrLabelEl.innerText = t.qrLabel;
+                if (begTipEl) begTipEl.innerText = t.begTip;
+                if (cryptoTitileEl) cryptoTitileEl.innerText = t.cryptoTitle;
+                if (blogLinkEl) blogLinkEl.innerText = t.blog;
+                if (toggleBtn) toggleBtn.innerText = t.langBtn;
+                cryptoNameEls.forEach(el => {
+                    const key = el.getAttribute('data-key');
+                    if (key && t[key]) el.innerText = t[key];
+                });
+                document.title = lang === 'zh' ? '要饭' : 'Beg Meal';
+                document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+            }
+            function toggleLanguage() {
+                currentLang = currentLang === 'zh' ? 'en' : 'zh';
+                updateLanguage(currentLang);
+                localStorage.setItem('begLangPref', currentLang);
+            }
+            if (toggleBtn) toggleBtn.addEventListener('click', toggleLanguage);
+            const savedLang = localStorage.getItem('begLangPref');
+            if (savedLang === 'zh' || savedLang === 'en') {
+                currentLang = savedLang;
+                updateLanguage(currentLang);
+            } else {
+                updateLanguage('zh');
+            }
+        })();
+    </script>
+</body>
+</html>
